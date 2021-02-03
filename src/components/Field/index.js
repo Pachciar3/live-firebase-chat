@@ -1,12 +1,13 @@
 import React from "react";
 
-import "./styles.css";
+import "./styles.scss";
 
-function Field({ label, id, children }) {
+function Field({ label, id, children, error = false }) {
   return (
     <div className="field">
-      <label for={id}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       {children}
+      {error && <span className="field__error">{error}</span>}
     </div>
   )
 }

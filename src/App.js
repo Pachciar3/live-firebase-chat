@@ -2,13 +2,13 @@ import React from 'react';
 
 import "./App.css";
 
-import Messages from "./components/Messages"
+import Messenger from "./Messenger"
 
 function App() {
 
   return (
     <div className="App">
-      <Messages />
+      <Messenger />
     </div>
   );
 }

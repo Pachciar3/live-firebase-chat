@@ -2,19 +2,14 @@
   display: flex;
   font-size: 16px;
   font-weight: 600;
-  /* align-items: center; */
   text-align: left;
   flex-direction: column;
   padding: 5px;
   flex-grow: 2;
   min-width: 0px;
-}
-
-.field--input {
-  display: block;
-  height: 28px;
-  font-size: 16px;
-  font-weight: 400;
-  padding: 3px;
-  /* width: 100%; */
+  &__error {
+    padding: 0px 2px;
+    font-size: 12px;
+    color: red;
+  }
 }

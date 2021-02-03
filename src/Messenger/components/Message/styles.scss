@@ -1,0 +1,15 @@
+.message {
+  text-align: left;
+  background: #ecf0f1;
+  margin: 4px;
+  padding: 6px;
+  border-radius: 4px;
+  &__user {
+    font-weight: 800;
+    margin-bottom: 0.4em;
+  }
+  &__time {
+    font-weight: normal;
+    padding-left: 5px;
+  }
+}

@@ -5,12 +5,30 @@
   background-color: #fff;
   border-radius: 5px;
   &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px 20px;
     background-color: blueviolet;
     color: #fff;
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 2px;
+    span {
+      flex-grow: 1;
+      margin-left: 20px;
+    }
+  }
+  &__sound-button {
+    justify-self: right;
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
   }
   &__loader {
     display: flex;

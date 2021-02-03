@@ -6,7 +6,7 @@ import MessageForm from '../MessageForm';
 import Title from '../Title';
 import MessagesList from '../../containers/MessagesList';
 
-function Chat({ isLoaded, messages, firstMessage, formData, handleSubmit, handleChange, formErrors }) {
+function Chat({ isLoaded, messages, firstMessage, handleSoundButton, formData, handleSubmit, handleChange, formErrors, messageSound }) {
 
   function renderMessagesList() {
     if (isLoaded) {
@@ -19,7 +19,7 @@ function Chat({ isLoaded, messages, firstMessage, formData, handleSubmit, handle
 
   return (
     <div className="Messenger">
-      <Title>Czat na żywo</Title>
+      <Title handleSoundButton={handleSoundButton} messageSound={messageSound} >Czat na żywo</Title>
       {renderMessagesList()}
       <MessageForm formErrors={formErrors} formData={formData} handleSubmit={handleSubmit} handleChange={handleChange} />
     </div>

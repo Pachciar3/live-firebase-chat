@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import db from '../../../config.js';
 import Chat from '../../components/Chat';
-import { chatNickname } from "../../../localstorage"
+import { chatNickname, messageSoundStorage } from "../../../localstorage"
 
 function Messages() {
   const FORM_DATA = {
@@ -13,14 +13,20 @@ function Messages() {
     nickname: false,
     message: false
   };
+  const MESSAGE_SOUND = messageSoundStorage.get() ? JSON.parse(messageSoundStorage.get()) : true;
   const [formData, setFormData] = useState(FORM_DATA);
   const [formErrors, setFormErrors] = useState(FORM_ERRORS);
+  const [messageSound, setMessageSound] = useState(MESSAGE_SOUND);
   const [messages, setMessages] = useState([]);
   const [firstMessage, setFirstMessage] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const messageAudio = new Audio("./sounds/message.mp3");
+
   useEffect(() => {
-    const messageAudio = new Audio("./sounds/message.mp3");
+    const messageSoundStorageAfterJSON = JSON.parse(messageSoundStorage.get())
+    if ((messageSoundStorageAfterJSON !== messageSound) || (messageSoundStorageAfterJSON === null)) messageSoundStorage.set(messageSound);
+    db.ref('/messages').off('value');
     let firstLoading = 0
     db.ref('/messages').orderByKey().limitToLast(20).on('value', (snapshot) => {
       const fbMesssages = snapshot.val();
@@ -38,11 +44,15 @@ function Messages() {
         }
       );
       setMessages(convertedMessages);
-      firstLoading !== 0 && messageAudio.play();
+      messageSound && firstLoading !== 0 && messageAudio.play();
       firstLoading++;
       setIsLoaded(true);
     });
-  }, []);
+  }, [messageSound]);
+
+  const handleSoundButton = () => {
+    setMessageSound(prev => prev = !prev)
+  }
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value })
@@ -90,6 +100,8 @@ function Messages() {
       firstMessage={firstMessage}
       formData={formData}
       formErrors={formErrors}
+      handleSoundButton={handleSoundButton}
+      messageSound={messageSound}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
     />

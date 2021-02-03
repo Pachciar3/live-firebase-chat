@@ -7,4 +7,4 @@ const registerItem = (key) => {
 }
 
 export const chatNickname = registerItem("chat_nickname");
-export const messageSound = registerItem("chat_sound");
+export const messageSoundStorage = registerItem("chat_sound");

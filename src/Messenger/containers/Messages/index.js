@@ -12,6 +12,7 @@ function Messages() {
   const FORM_ERRORS = {
     nickname: false,
     message: false,
+    submit: false,
   };
   const MESSAGE_SOUND = messageSoundStorage.get() ? JSON.parse(messageSoundStorage.get()) : true;
   const [formData, setFormData] = useState(FORM_DATA);
@@ -73,13 +74,25 @@ function Messages() {
 
     if (formData.message && formData.nickname) {
       chatNickname.set(formData.nickname);
-      db.ref('/messages').push(newMessage);
       setFormErrors({
-        FORM_ERRORS,
+        ...formErrors,
+        submit: 'submited',
       });
-      setFormData({
-        ...formData,
-        message: '',
+      db.ref('/messages').push(newMessage, error => {
+        if (error) {
+          setFormErrors({
+            ...FORM_ERRORS,
+            submit: 'error',
+          });
+        } else {
+          setFormErrors({
+            ...FORM_ERRORS,
+          });
+          setFormData({
+            ...formData,
+            message: '',
+          });
+        }
       });
     } else {
       if (!formData.message) {

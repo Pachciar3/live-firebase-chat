@@ -1,4 +1,5 @@
 import React, {useEffect, useRef} from 'react';
+
 import Message from '../../components/Message';
 
 function MessagesList({messages, isLoaded, firstMessage}) {

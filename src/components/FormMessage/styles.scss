@@ -1,0 +1,8 @@
+@import '../../scss/variables.scss';
+
+.form-message {
+  font-size: 12px;
+  &--error {
+    color: $errorColor;
+  }
+}

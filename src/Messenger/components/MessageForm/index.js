@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Button from '../../../components/Button';
+import SubmitButton from '../../../components/SubmitButton';
 import Field from '../../../components/Field';
 import Input from '../../../components/Input';
+import FormMessage from '../../../components/FormMessage';
 import showError from '../../../utils/showError';
 import './styles.css';
 
@@ -10,7 +11,12 @@ function MessageForm({formData, formErrors, handleSubmit, handleChange}) {
   function prepareId(key) {
     return `messenger-form-${key}`;
   }
-
+  function giveLoadedInfo(info) {
+    if (info === 'submited') {
+      return false;
+    }
+    return true;
+  }
   return (
     <div className="Messenger__footer">
       <form onSubmit={handleSubmit}>
@@ -42,7 +48,12 @@ function MessageForm({formData, formErrors, handleSubmit, handleChange}) {
             />
           </Field>
         </div>
-        <Button type="submit">Wyślij</Button>
+        <SubmitButton type="submit" loaded={giveLoadedInfo(formErrors.submit)}>
+          Wyślij
+        </SubmitButton>
+        {formErrors.submit === 'error' && (
+          <FormMessage type="error">Wystąpił błąd. Spróbuj ponownie</FormMessage>
+        )}
       </form>
     </div>
   );

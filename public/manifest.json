@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Firebase live chat",
+  "name": "Live chat created with firebase, without user authorization. Nickname is stored in localStorage",
   "icons": [
     {
       "src": "favicon.ico",

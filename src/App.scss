@@ -1,0 +1,8 @@
+@import './scss/variables.scss';
+body {
+  background-color: $dark;
+}
+
+.App {
+  min-height: 100vh;
+}

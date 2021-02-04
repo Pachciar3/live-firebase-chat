@@ -1,6 +1,8 @@
+@import '../../../scss/variables.scss';
+
 .message {
   text-align: left;
-  background: #ecf0f1;
+  background: $light;
   margin: 4px;
   padding: 6px;
   border-radius: 4px;

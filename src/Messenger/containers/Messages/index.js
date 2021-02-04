@@ -1,111 +1,115 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
-import db from '../../../config.js';
 import Chat from '../../components/Chat';
-import { chatNickname, messageSoundStorage } from "../../../localstorage"
+import db from '../../../config.js';
+import {chatNickname, messageSoundStorage} from '../../../localstorage';
 
 function Messages() {
   const FORM_DATA = {
-    nickname: chatNickname.get() || "",
-    message: ""
+    nickname: chatNickname.get() || '',
+    message: '',
   };
   const FORM_ERRORS = {
     nickname: false,
-    message: false
+    message: false,
   };
   const MESSAGE_SOUND = messageSoundStorage.get() ? JSON.parse(messageSoundStorage.get()) : true;
   const [formData, setFormData] = useState(FORM_DATA);
   const [formErrors, setFormErrors] = useState(FORM_ERRORS);
   const [messageSound, setMessageSound] = useState(MESSAGE_SOUND);
   const [messages, setMessages] = useState([]);
-  const [firstMessage, setFirstMessage] = useState(false);
+  const [firstMessage, setFirstMessage] = useState(false); //REPAIR
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const messageAudio = new Audio("./sounds/message.mp3");
+  const messageAudio = new Audio('./sounds/message.mp3');
 
   useEffect(() => {
-    const messageSoundStorageAfterJSON = JSON.parse(messageSoundStorage.get())
-    if ((messageSoundStorageAfterJSON !== messageSound) || (messageSoundStorageAfterJSON === null)) messageSoundStorage.set(messageSound);
+    const messageSoundStorageAfterJSON = JSON.parse(messageSoundStorage.get());
+    if (messageSoundStorageAfterJSON !== messageSound || messageSoundStorageAfterJSON === null) {
+      messageSoundStorage.set(messageSound);
+    }
     db.ref('/messages').off('value');
-    let firstLoading = 0
-    db.ref('/messages').orderByKey().limitToLast(20).on('value', (snapshot) => {
-      const fbMesssages = snapshot.val();
-      let i = 0;
-      const convertedMessages = Object.entries(fbMesssages || {}).map(
-        ([id, message]) => {
-          if (i === 0) {
+    let firstLoading = 0;
+    db.ref('/messages')
+      .orderByKey()
+      .limitToLast(20)
+      .on('value', snapshot => {
+        const fbMessages = snapshot.val();
+        let messageCounter = 0;
+        const convertedMessages = Object.entries(fbMessages || {}).map(([id, message]) => {
+          if (messageCounter === 0) {
             setFirstMessage(id);
           }
-          i++
-          return ({
+          messageCounter++;
+          return {
             ...message,
-            id
-          })
-        }
-      );
-      setMessages(convertedMessages);
-      messageSound && firstLoading !== 0 && messageAudio.play();
-      firstLoading++;
-      setIsLoaded(true);
-    });
+            id,
+          };
+        });
+
+        setMessages(convertedMessages);
+        messageSound && firstLoading !== 0 && messageAudio.play();
+        firstLoading++;
+        setIsLoaded(true);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageSound]);
 
   const handleSoundButton = () => {
-    setMessageSound(prev => prev = !prev)
-  }
+    setMessageSound(prev => (prev = !prev));
+  };
 
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value })
-  }
+  const handleFormChange = event => {
+    setFormData({...formData, [event.target.name]: event.target.value});
+  };
 
-  const handleSubmit = (event) => {
+  const handleFormSubmit = event => {
     event.preventDefault();
-    const messageObj = {
+    const newMessage = {
       user: formData.nickname,
       content: formData.message,
-      datetime: Date.now()
-    }
+      datetime: Date.now(),
+    };
 
     if (formData.message && formData.nickname) {
       chatNickname.set(formData.nickname);
-      db.ref('/messages').push(messageObj);
+      db.ref('/messages').push(newMessage);
       setFormErrors({
-        FORM_ERRORS
+        FORM_ERRORS,
       });
       setFormData({
         ...formData,
-        message: ""
+        message: '',
       });
     } else {
       if (!formData.message) {
         setFormErrors({
           ...formErrors,
-          message: true
-        })
+          message: true,
+        });
       }
       if (!formData.nickname) {
         setFormErrors({
           ...formErrors,
-          nickname: true
-        })
+          nickname: true,
+        });
       }
     }
-  }
-
+  };
 
   return (
     <Chat
       isLoaded={isLoaded}
       messages={messages}
       firstMessage={firstMessage}
-      formData={formData}
-      formErrors={formErrors}
       handleSoundButton={handleSoundButton}
       messageSound={messageSound}
-      handleSubmit={handleSubmit}
-      handleChange={handleChange}
+      handleSubmit={handleFormSubmit}
+      handleChange={handleFormChange}
+      formData={formData}
+      formErrors={formErrors}
     />
   );
 }
 
-export default Messages; 
+export default Messages;

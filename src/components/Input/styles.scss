@@ -1,7 +1,9 @@
-.field--input {
+@import '../../scss/variables.scss';
+
+.input {
   display: block;
-  height: 28px;
   font-size: 16px;
   font-weight: 400;
-  padding: 3px;
+  padding: 5px 3px;
+  font-family: $font;
 }

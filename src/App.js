@@ -1,11 +1,10 @@
 import React from 'react';
 
-import "./App.css";
+import './App.scss';
 
-import Messenger from "./Messenger"
+import Messenger from './Messenger';
 
 function App() {
-
   return (
     <div className="App">
       <Messenger />
@@ -13,4 +12,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

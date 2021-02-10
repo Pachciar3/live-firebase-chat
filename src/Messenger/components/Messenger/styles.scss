@@ -104,15 +104,15 @@
   &__footer {
     padding-bottom: 10px;
   }
+  &__scroll-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   &__list {
     position: relative;
     overflow-y: scroll;
     overscroll-behavior: contain;
-    &-filler {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
     &::-webkit-scrollbar {
       width: 8px;
       background-color: $light;

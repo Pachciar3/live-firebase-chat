@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 
-import ListFiller from '../../components/ListFiller';
+import ScrollLoader from '../../components/ScrollLoader';
 import ListMessages from '../../components/ListMessages';
 import ListBottomButton from '../../components/ListBottomButton';
 
@@ -62,7 +62,10 @@ function ListScroll({
 
   return (
     <div className="Messenger__list" ref={messagesListRef} onScroll={handleScroll}>
-      <ListFiller wantScrollMessages={wantScrollMessages} haveScrollMessages={haveScrollMessages} />
+      <ScrollLoader
+        wantScrollMessages={wantScrollMessages}
+        haveScrollMessages={haveScrollMessages}
+      />
       <ListMessages messages={messages} />
       <ListBottomButton goToBottom={goToBottom} list={messagesListRef.current} />
       <div ref={messagesEndRef}></div>

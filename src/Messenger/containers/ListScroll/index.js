@@ -27,7 +27,6 @@ function ListScroll({
 
   useEffect(() => {
     const {scrollHeight, clientHeight, scrollTop} = messagesListRef.current;
-    console.log(scrollTop, clientHeight, scrollHeight);
     const scrollTopWithHeight = scrollTop + clientHeight;
     if (newMessageLoaded) {
       if (scrollTopWithHeight + 200 > scrollHeight) {
@@ -42,7 +41,6 @@ function ListScroll({
     if (newScrollMessagesLoaded) {
       const scrollTo = list.scrollHeight - prevHeight;
       list.scrollTop = scrollTo;
-      console.log(scrollTo, list.scrollTop, list.scrollHeight);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newScrollMessagesLoaded]);

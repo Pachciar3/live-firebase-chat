@@ -5,7 +5,7 @@ import renderLinks from '../../../utils/renderLinks';
 import './styles.scss';
 
 function Message({message}) {
-  let text = renderLinks(message.content);
+  const text = renderLinks(message.content);
   return (
     <div className="message">
       <div className="message__user">
@@ -17,4 +17,4 @@ function Message({message}) {
   );
 }
 
-export default Message;
+export default React.memo(Message);

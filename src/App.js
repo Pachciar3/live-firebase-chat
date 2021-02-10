@@ -5,11 +5,7 @@ import './App.scss';
 import Messenger from './Messenger';
 
 function App() {
-  return (
-    <div className="App">
-      <Messenger />
-    </div>
-  );
+  return <div className="App">{<Messenger />}</div>;
 }
 
 export default App;

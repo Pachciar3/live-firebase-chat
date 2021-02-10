@@ -1,3 +1,3 @@
-import Messages from './containers/Messages';
+import Messenger from './containers/MessengerCon';
 
-export default Messages;
+export default Messenger;

@@ -1,17 +1,19 @@
 @import '../../scss/variables.scss';
 
+@mixin createMessageType($property, $value) {
+  &--#{$property} {
+    color: $value;
+    border-color: $value;
+  }
+}
+
 .form-message {
   font-size: 13px;
   font-weight: 600;
   padding: 3px;
   margin: 10px;
-  border: 1px solid #fff;
-  &--error {
-    color: $errorColor;
-    border-color: $errorColor;
-  }
-  &--warning {
-    color: $warningColor;
-    border-color: $warningColor;
-  }
+  border: 2px solid #fff;
+  @include createMessageType(error, $errorColor);
+  @include createMessageType(warning, $warningColor);
+  @include createMessageType(success, $successColor);
 }

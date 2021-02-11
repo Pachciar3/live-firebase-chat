@@ -29,7 +29,7 @@ function ListScroll({
     const {scrollHeight, clientHeight, scrollTop} = messagesListRef.current;
     const scrollTopWithHeight = scrollTop + clientHeight;
     if (newMessageLoaded) {
-      if (scrollTopWithHeight + 200 > scrollHeight) {
+      if (scrollTopWithHeight + 350 > scrollHeight) {
         messagesEndRef.current.scrollIntoView(true);
       }
       setNewMessageLoaded(false);

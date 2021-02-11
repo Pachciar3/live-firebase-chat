@@ -52,7 +52,7 @@ function Form({handleChange, handleSubmit, formData, formErrors}) {
         Wyślij
       </SubmitButton>
       {formErrors.submit === 'not-complete' && (
-        <FormMessage type="error">Musisz uzupełnić</FormMessage>
+        <FormMessage type="error">Musisz poprawnie uzupełnić formularz</FormMessage>
       )}
       {formErrors.submit === 'error' && (
         <FormMessage type="error">Wystąpił błąd. Spróbuj ponownie</FormMessage>

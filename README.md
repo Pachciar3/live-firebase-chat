@@ -2,14 +2,14 @@
 
 Live chat created with React and Firebase
 
-![Screenshot](https://i.imgur.com/bUXGbsD.png)
+![Screenshot](https://i.imgur.com/cunITIf.png)
 
 ## Development
 
 1. Fetch this project
 2. Run `npm install`
 3. Run `code .` and create `.env` file
-4. Write to your enviroment variables based on `.env-example`
+4. Write your enviroment variables based on `.env-example`
 5. Run `npm start`
 
 ## Used technologies
@@ -20,6 +20,7 @@ Live chat created with React and Firebase
 
 ## Features
 
+- User identification colors
 - Ability to off new message sound
 - Nickname stored in localStorage
 - Ability to load new messages while scrolling up

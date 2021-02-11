@@ -3,8 +3,9 @@ import React, {useState, useEffect} from 'react';
 import Messenger from '../../components/Messenger';
 import {messageSoundStorage} from '../../../messengerLocalStorage';
 
+const MESSAGE_SOUND = messageSoundStorage.get() ? JSON.parse(messageSoundStorage.get()) : true;
+
 function MessengerCon() {
-  const MESSAGE_SOUND = messageSoundStorage.get() ? JSON.parse(messageSoundStorage.get()) : true;
   const [messageSound, setMessageSound] = useState(MESSAGE_SOUND);
 
   useEffect(() => {

@@ -1,19 +1,25 @@
 import React, {useState, useEffect} from 'react';
 
-import {chatNickname} from '../../../messengerLocalStorage';
+import {chatNickname, userColorStorage} from '../../../messengerLocalStorage';
 import Form from '../../components/Form';
 import db from '../../../config.js';
+import {getRandomColor} from '../../../pallete';
+
+const userColor = userColorStorage.get() || getRandomColor();
+if (!userColorStorage.get()) {
+  userColorStorage.set(userColor);
+}
+const FORM_DATA = {
+  nickname: chatNickname.get() || '',
+  message: '',
+};
+const FORM_ERRORS = {
+  nickname: false,
+  message: false,
+  submit: false,
+};
 
 function MessageForm() {
-  const FORM_DATA = {
-    nickname: chatNickname.get() || '',
-    message: '',
-  };
-  const FORM_ERRORS = {
-    nickname: false,
-    message: false,
-    submit: false,
-  };
   const [formData, setFormData] = useState(FORM_DATA);
   const [formErrors, setFormErrors] = useState(FORM_ERRORS);
 
@@ -36,6 +42,7 @@ function MessageForm() {
     const newMessage = {
       user: formData.nickname,
       content: formData.message,
+      userColor,
       datetime: Date.now(),
     };
 

@@ -5,12 +5,13 @@ import renderLinks from '../../../utils/renderLinks';
 import './styles.scss';
 
 function Message({message}) {
-  const text = renderLinks(message.content);
+  const {content, userColor, user, datetime} = message;
+  const text = renderLinks(content);
   return (
-    <div className="message">
+    <div className="message" style={{borderLeft: `5px solid ${userColor || '#000'}`}}>
       <div className="message__user">
-        {message.user}
-        <span className="message__time">{convertDate(message.datetime)}</span>
+        {user}
+        <span className="message__time">{convertDate(datetime)}</span>
       </div>
       <div className="message__content">{text}</div>
     </div>

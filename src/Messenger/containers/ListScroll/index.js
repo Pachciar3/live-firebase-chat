@@ -4,6 +4,8 @@ import ScrollLoader from '../../components/ScrollLoader';
 import ListMessages from '../../components/ListMessages';
 import ListBottomButton from '../../components/ListBottomButton';
 
+import useWindowSize from "../../../utils/useWindowSize";
+
 function ListScroll({
   messages,
   isFirstLoaded,
@@ -19,11 +21,20 @@ function ListScroll({
   const messagesEndRef = useRef(null);
   const messagesListRef = useRef(null);
 
+  const size = useWindowSize();
+
   useEffect(() => {
     if (isFirstLoaded) {
       messagesEndRef.current.scrollIntoView(true);
     }
   }, [isFirstLoaded]);
+
+  useEffect(() => {
+    const {scrollHeight, clientHeight, scrollTop} = messagesListRef.current;
+    if(!(scrollTop + clientHeight <= scrollHeight - 400)){
+      messagesEndRef.current.scrollIntoView(true);
+    }
+  }, [size]);
 
   useEffect(() => {
     const {scrollHeight, clientHeight, scrollTop} = messagesListRef.current;
